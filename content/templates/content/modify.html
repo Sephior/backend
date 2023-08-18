@@ -1,0 +1,26 @@
+<!--포스팅을 위한, 글 고치는 기능 파일-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>수정 페이지</title>
+    </head>
+    <body>
+        <!--게시글을 다 쓰면 저장되는 포스트의 id(자동생성)을 불러와서 수정할 수 있게 함-->
+        <form id="makefeed" name="makefeed" method="post" action="{% url 'content:modify' feed.id %}">
+            <!--랜덤한 토큰 생성 {% csrf_token %} -->
+            {% csrf_token %} content
+            <!--value를 포스트의 기존 내용을 불러와 채운다.-->
+            <input name="content" type="text" value="{{feed.content}}" /><br>
+            nickname
+            <input name="nickname" type="text" value="{{feed.nickname}}" /><br>
+            imageURL
+            <input name="image" type="text" value="{{feed.image}}" /><br>
+            profileURL
+            <input name="profile" type="text" value="feed.profile" /><br>
+
+            <input type="submit" value="수정" />
+        </form>
+    </body>
+</html>

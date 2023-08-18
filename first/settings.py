@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'first',
     'content',
     'user',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

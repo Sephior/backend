@@ -26,11 +26,11 @@ class Post(APIView):
         return render(request, "content/post.html")
     
     def post(self, request):
-        # post.html 에서 이름이 같은 데이터를 가져온다.
-        content=request.POST.get('content')
-        nickname=request.POST.get('nickname')
-        image=request.POST.get('image')
-        profile=request.POST.get('profile')
+        # main.html 에서 이름이 같은 데이터를 가져온다.
+        content = request.POST.get('content')
+        nickname = request.POST.get('nickname')
+        image = request.POST.get('image')
+        profile = request.POST.get('profile')
 
         feed = Feed()
         feed.content = content
@@ -40,3 +40,30 @@ class Post(APIView):
         feed.save()
 
         return redirect('content:main')
+
+# 고치기 - Modify
+class Modify(APIView):
+    def post(self, request, pk):
+        # main.html 에서 이름이 같은 데이터를 가져온다.
+        content = request.POST.get('content')
+        nickname = request.POST.get('nickname')
+        image = request.POST.get('image')
+        profile = request.POST.get('profile')
+
+        #id=pk인 모든 피드를 불러온다.
+        feed = Feed.objects.get(id=pk)
+        feed.content = content
+        feed.nickname = nickname
+        feed.image = image
+        feed.profile = profile
+        feed.save()
+
+        # content의 메인으로 되돌린다.
+        return redirect('content:main')
+    
+    def get(self, request, pk):
+        feed = Feed.objects.get(id=pk)
+        # modify.html의 요청에 피드를 반환한다.(수정을 위한 데이터 전달)
+        return render(request, "content/modify.html", {
+            'feed': feed,
+        })

@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    # url을 db에서 설정한다?
+    # 가장 기본이 되는 url을 설정한다.
     path('admin/', admin.site.urls),
+    # content.urls의 url을 가져오게 한다.
     path('', include('content.urls')),
 ]
