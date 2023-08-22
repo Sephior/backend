@@ -41,7 +41,7 @@ class Post(APIView):
 
         return redirect('content:main')
 
-# 고치기 - Modify
+# 고치기 - Modify, update
 class Modify(APIView):
     def post(self, request, pk):
         # main.html 에서 이름이 같은 데이터를 가져온다.
@@ -67,3 +67,21 @@ class Modify(APIView):
         return render(request, "content/modify.html", {
             'feed': feed,
         })
+
+# 지우기 - Delete
+def Delete(request, pk):
+    if request.method == 'POST':
+        feed = Feed.objects.get(id=pk)
+        feed.delete()
+    return redirect('content:main')
+
+def isliked(request, pk):
+    if request.method == 'POST':
+        s = request.POST.get('isliked')
+        feed = Feed.objects.get(id=pk)
+        if s == '좋아요':
+            feed.like = feed.like+1
+        elif s == '싫어요':
+            feed.unlike = feed.unlike+1
+        feed.save()
+    return redirect('content:main')

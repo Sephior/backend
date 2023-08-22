@@ -16,11 +16,27 @@
             <img src="{{feed.image}}"/>
             <p>{{feed.like}}</p>
             <p>{{feed.unlike}}</p>
+
+            <!--좋아요, 싫어요 버튼 생성-->
+            <form action="{% url 'content:isliked' feed.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="isliked" value="좋아요">좋아요</button>
+                <button type="submit" name="isliked" value="싫어요">싫어요</button>
+            </form>
+
             <p>생성된 날짜 : {{feed.created_at}}</p>
             <p>수정된 날짜 : {{feed.updated_at}}</p>
+
             <!--수정 버튼 생성-->
+            <!--content의 urls의 modify관련 url 뒤에 feed의 id를 넣어 수정할 피드를 설정한다.-->
             <form action="{% url 'content:modify' feed.id %}" method="get">
                 <button type="submit">수정</button>
+            </form>
+            <!--삭제 버튼 생성-->
+            <!--content의 urls의 modify관련 url 뒤에 feed의 id를 넣어 삭제할 피드를 설정한다.-->
+            <form action="{% url 'content:delete' feed.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">삭제</button>
             </form>
         </div>
         <hr/>
